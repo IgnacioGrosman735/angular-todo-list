@@ -1,0 +1,64 @@
+.todo-app {
+  font-family: 'Arial', sans-serif;
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.app-header {
+  font-family: 'Rockwell', sans-serif;
+  font-size: 2rem;
+  text-align: center;
+  margin-bottom: 20px;
+}
+
+.task-form,
+.task-search,
+.task-filters,
+.task-counter,
+.toggle-all-tasks {
+  margin-bottom: 15px;
+}
+
+.task-form {
+  display: flex;
+  gap: 50px; /* Espacio entre los elementos */
+  align-items: center; /* Alinea verticalmente */
+  height: 100px;
+}
+
+.task-list ul {
+  list-style-type: none;
+  padding: 0;
+  background-color: #e3967d;
+  border-radius: 10px;
+}
+
+.task-item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 4px;
+  font-family: 'Roboto';
+}
+
+.task-item .view-mode span {
+  flex-grow: 1;
+  margin-left: 10px;
+}
+
+.task-filters button {
+  margin-right: 5px;
+}
+
+.task-counter {
+  font-family: 'Roboto';
+}
+
+.view-mode {
+  display: flex;
+  align-items: center;
+  width: 100%;
+}

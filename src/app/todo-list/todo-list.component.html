@@ -1,0 +1,85 @@
+<div class="todo-app">
+    
+    <!-- Título -->
+    <header class="app-header">
+      <h1>Lista de Tareas</h1>
+    </header>
+  
+    <!-- Formulario para agregar tareas -->
+    <section class="task-form">
+      <mat-form-field appearance="outline" >
+        <mat-label>Nueva tarea</mat-label>
+        <input matInput #taskInput type="text" placeholder="Escribe tu tarea">
+      </mat-form-field>
+      <button mat-raised-button (click)="addTask(taskInput.value); taskInput.value = ''" class="addTask-button">
+        Agregar
+      </button>
+    </section>  
+
+    <!-- Barra de búsqueda -->
+    <section class="task-search">
+      <mat-form-field appearance="outline" >
+        <mat-label>Buscar tarea</mat-label>
+        <input matInput
+          id="search"
+          type="text"
+          [(ngModel)]="filterText"
+          placeholder="Buscar tarea..."
+        />
+      </mat-form-field>
+    </section>
+
+    <!-- Filtros -->
+    <section class="task-filters">
+      <button mat-flat-button (click)="setFilter('all')">Todas</button>
+      <button mat-flat-button (click)="setFilter('completed')">Completadas</button>
+      <button mat-flat-button (click)="setFilter('pending')">Pendientes</button>
+      <button mat-icon-button>
+        <mat-icon>favorite</mat-icon>
+      </button>
+    </section>
+  
+    <!-- Lista de tareas -->
+    <section class="task-list">
+      <ul>
+        <li *ngFor="let task of filteredTasks()" class="task-item">
+          <!-- Mostrar input si se está editando -->
+          <div *ngIf="editingTaskId() === task.id; else viewMode" class="edit-mode">
+            <input
+              type="text"
+              [value]="task.title"
+              (blur)="confirmEditSafe(task.id, $event.target)"
+              (keyup.enter)="confirmEditSafe(task.id, $event.target)"
+            />
+          </div>
+
+          <!-- Modo de vista normal -->
+          <ng-template #viewMode>
+            <div class="view-mode">
+              <mat-checkbox
+                [checked]="task.completed"
+                (change)="toggleTaskCompletion(task.id)">
+              </mat-checkbox>
+              <span (click)="startEditing(task.id)">{{ task.title }}</span>
+              <button mat-button (click)="startEditing(task.id)" class="action-buttons">Editar</button>
+              <button mat-button (click)="deleteTask(task.id)" class="action-buttons">Eliminar</button>
+            </div>
+          </ng-template>
+        </li>
+      </ul>
+    </section>
+
+    <!-- Contador de tareas -->
+    <section class="task-counter">
+      <p>Tareas pendientes: {{ pendingTasksCount() }}</p>
+    </section>
+
+    <!-- Botón para marcar/desmarcar todas -->
+    <section class="toggle-all-tasks">
+      <button mat-raised-button (click)="toggleAllTasks()">
+        {{ allCompleted() ? 'Desmarcar todas' : 'Marcar todas como completadas' }}
+      </button>
+    </section>    
+
+  </div>
+  
